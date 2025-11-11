@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My New Site</title>
+  </head>
+  <body>
+    <h1>Hello from my new site!</h1>
+    <p>This is no longer Wix 🙂</p>
+  </body>
+</html>
