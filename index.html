@@ -374,8 +374,69 @@ html, body, button, input, textarea {
     </div>
   </form>
 </div>
+</form>
+</div>
 
-const API_URL = https://script.google.com/macros/s/AKfycbxZQYhINqmcxLdm3hnj8qB3tRE599ji9hcw-c2YxbLCQtcmcItIZEqgnzmpZjrwSPsCGQ/exec;
+<!-- ================== SCRIPT ================== -->
+<script>
+  // Your Google Apps Script Web App URL
+  const API_URL = "https://script.google.com/macros/s/AKfycbxZQYhINqm.../exec";
+
+  // Hook the form to send entries
+  const form = document.getElementById("memoryForm");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("memName").value.trim();
+      const link = document.getElementById("memLink").value.trim();
+      const text = document.getElementById("memText").value.trim();
+      const file = document.getElementById("memFile").files[0];
+
+      // Basic validation
+      if (!name || !text) {
+        alert("אנא מלאו את השדות הנדרשים");
+        return;
+      }
+
+      // Convert uploaded file (if any) to Base64
+      let mediaBase64 = "";
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          mediaBase64 = reader.result;
+          await submitMemory(name, link, text, mediaBase64);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await submitMemory(name, link, text, mediaBase64);
+      }
+    });
+  }
+
+  // Send data to Google Apps Script
+  async function submitMemory(name, link, text, mediaBase64) {
+    const data = { author: name, link, text, media: mediaBase64 };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = await res.json();
+      if (result.ok) {
+        alert("נשמר בהצלחה!");
+        form.reset();
+      } else {
+        alert("שגיאה בשליחה");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("שגיאה בחיבור לשרת");
+    }
+  }
+</script>
 
   <!-- MEMORIES SECTION -->
 <section id="stories" class="memories">
