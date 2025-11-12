@@ -381,7 +381,73 @@ html, body, button, input, textarea {
 <script>
   // Your Google Apps Script Web App URL
   const API_URL = "https://script.google.com/macros/s/AKfycbw_vnpvhhe2PDOGoNt_m_v7AsxxtR3L_O8ymBgZHoGFQtPjKglicGdqFX2FImH8YylD1g/exec";
+function renderMemories(list) {
+  const wrap = document.getElementById('masonry');
+  const empty = document.getElementById('emptyState');
+  wrap.innerHTML = '';
 
+  if (!list || !list.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  for (const m of list) {
+    const card = document.createElement('article');
+    card.className = 'post';
+
+    if (m.media && String(m.media).startsWith('data:image')) {
+      const img = document.createElement('img');
+      img.src = m.media;
+      img.alt = m.author ? `זיכרון מאת ${m.author}` : 'זיכרון';
+      card.appendChild(img);
+    }
+
+    const body = document.createElement('div');
+    body.className = 'post-body';
+
+    const who = document.createElement('div');
+    who.className = 'post-author';
+    who.textContent = m.author || 'אנונימי';
+    body.appendChild(who);
+
+    const txt = document.createElement('div');
+    txt.className = 'post-text';
+    txt.textContent = m.text || '';
+    body.appendChild(txt);
+
+    const meta = document.createElement('div');
+    meta.className = 'post-meta';
+    const d = new Date(Number(m.ts || Date.now()));
+    meta.textContent = d.toLocaleDateString('he-IL', { year:'numeric', month:'long', day:'numeric' });
+    if (m.link) {
+      const a = document.createElement('a');
+      a.href = m.link; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = ' · קישור מצורף';
+      meta.appendChild(a);
+    }
+    body.appendChild(meta);
+
+    card.appendChild(body);
+    wrap.appendChild(card);
+  }
+}
+async function refreshMemories() {
+  try {
+    const res = await fetch(API_URL);
+    const text = await res.text();
+    let list = [];
+    try { list = JSON.parse(text); } catch {}
+    renderMemories(list);
+  } catch (e) {
+    console.error("GET memories failed:", e);
+  }
+}
+
+// Load on page open
+document.addEventListener('DOMContentLoaded', refreshMemories);
+
+  
   // Hook the form to send entries
   const form = document.getElementById("memoryForm");
   if (form) {
