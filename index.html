@@ -6,14 +6,34 @@
   <title>יוסי קרטה</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-  @font-face{
-  font-family:"Satat";
+ /* Regular weight */
+@font-face {
+  font-family: "Satat";
   src:
-    url("fonts/Satat-Regular.woff2?v=2") format("woff2"),
-    url("fonts/Satat-Regular.ttf?v=2") format("truetype");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
+    url("fonts/Satat-Regular.woff2?v=3") format("woff2"),
+    url("fonts/Satat-Regular.ttf?v=3") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold weight (temporary mapping to regular file) */
+@font-face {
+  font-family: "Satat";
+  src:
+    url("fonts/Satat-Regular.woff2?v=3") format("woff2"),
+    url("fonts/Satat-Regular.ttf?v=3") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply to everything */
+html, body, button, input, textarea {
+  font-family: "Satat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* {
+  font-family: inherit;
 }
 
     /* ===== THEME ===== */
