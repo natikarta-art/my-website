@@ -8,3 +8,352 @@ my-website/
     ...etc
   videos/
     (optional video files)
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>יוסי קרטה</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    /* ===== FONT ===== */
+    @font-face{
+      font-family:"Satat";
+      src:url("fonts/Satat-Regular.ttf") format("truetype");
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+
+    /* ===== THEME ===== */
+    :root{
+      --green-600:#436d61;
+      --green-500:#4a7b6c;
+      --sky-200:#c9d2fb;      /* רקע לילך/כחלחל */
+      --paper:#ffffff;
+      --text:#111;
+      --muted:#5f5f5f;
+      --edge:#e5e5e5;
+      --brand1:#0d6170;       /* כותרת ענק גרדיאנט */
+      --brand2:#0a5bb9;
+      --shadow:0 10px 22px rgba(0,0,0,.12);
+    }
+
+    /* ===== RESET ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    img{max-width:100%;display:block}
+    body{
+      font-family:"Satat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color:var(--text); line-height:1.65; background:#fff;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+
+    .wrap{max-width:1200px;margin:0 auto;padding:0 1.6rem}
+    section{padding:3.5rem 0}
+    h1,h2,h3{font-weight:700}
+    h2{font-size:2.4rem;margin-bottom:1.2rem}
+    .muted{color:var(--muted)}
+
+    /* ===== TOP BAR ===== */
+    .topbar{
+      position:sticky; top:0; z-index:1000;
+      background:linear-gradient(90deg,var(--green-600),var(--green-500));
+      color:#fff; border-bottom:1px solid rgba(0,0,0,.08);
+    }
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+    .menu{list-style:none;display:flex;gap:2rem;font-size:1rem}
+    .menu a{opacity:.92}
+    .menu a:hover{opacity:1}
+    .lang{background:#fff;color:#1a1a1a;border-radius:6px;padding:.35rem .6rem;font-size:.9rem}
+
+    /* ===== BIG TITLE ===== */
+    .title-hero{box-shadow:0 6px 10px rgba(0,0,0,.12)}
+    .bigtitle{
+      font-size:clamp(3rem,10vw,11rem);
+      text-align:center; line-height:1.05; letter-spacing:.02em;
+      background:linear-gradient(90deg,var(--brand1),var(--brand2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 6px 12px rgba(0,0,0,.15);
+      padding:2.2rem 1rem 0;
+    }
+
+    /* ===== SPLIT HERO STRIP ===== */
+    .strip{background:var(--sky-200); padding:2rem 0 0}
+    .strip-grid{
+      display:grid; grid-template-columns:1fr 1.2fr 1fr; gap:1.2rem;
+      align-items:stretch; max-width:1200px; margin:0 auto; padding:0 1.6rem 1.6rem;
+    }
+    .card{border-radius:12px; overflow:hidden; background:#000; position:relative; box-shadow:var(--shadow)}
+    .card img{width:100%; height:100%; object-fit:cover}
+    .center-caption{
+      position:absolute; inset:auto 50% 1.2rem auto; transform:translateX(50%);
+      background:#fff; color:#000; border-radius:8px;
+      padding:1rem 1.2rem; box-shadow:var(--shadow);
+      font-size:clamp(1.1rem,2.1vw,1.6rem);
+      max-width:min(90%,640px); text-align:center;
+    }
+
+    /* ===== LIFE SECTION ===== */
+    .life{background:var(--sky-200)}
+    .life-grid{display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center}
+    .life .imgbox{border-radius:12px; overflow:hidden; border:1px solid var(--edge); box-shadow:var(--shadow)}
+
+    /* ===== GALLERY ===== */
+    .gallery .section-title{text-align:center;margin-bottom:1.4rem}
+    .rail-wrap{position:relative}
+    .rail{
+      display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+      scroll-behavior:smooth; padding:.4rem 3.6rem .8rem; max-width:100%;
+    }
+    .rail::-webkit-scrollbar{height:10px}
+    .rail::-webkit-scrollbar-thumb{background:#c9c9c9;border-radius:999px}
+    .shot{flex:0 0 260px; height:260px; border-radius:10px; overflow:hidden; border:1px solid var(--edge); scroll-snap-align:start; background:#eee}
+    .shot img{width:100%; height:100%; object-fit:cover}
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:40px; height:40px; border-radius:999px; border:1px solid var(--edge);
+      background:#fff; display:grid; place-items:center; font-size:1.2rem; cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .prev{left:8px} .next{right:8px}
+
+    /* ===== VIDEOS ===== */
+    .videos .section-title{text-align:center;margin-bottom:1rem}
+    .video-hero{border-radius:12px; overflow:hidden; border:1px solid var(--edge); box-shadow:var(--shadow); margin-bottom:1rem}
+    .thumbs{display:flex; gap:10px; overflow-x:auto}
+    .thumb{flex:0 0 180px; height:110px; border-radius:10px; overflow:hidden; border:1px solid var(--edge); cursor:pointer}
+    .thumb img{width:100%; height:100%; object-fit:cover; filter:brightness(.9)}
+    .thumb:hover img{filter:brightness(1)}
+
+    /* ===== OVERLAY FORM ===== */
+    .mem-form{
+      position:relative; min-height:60vh; display:grid; place-items:center;
+      background:#000;
+    }
+    .mem-form .bg{
+      position:absolute; inset:0; background:url('images/159cfb1e-d0c3-4a74-8b10-b0ea0cec742e.jpg') center/cover no-repeat; opacity:.7;
+    }
+    .panel{
+      position:relative; background:rgba(255,255,255,.92); border-radius:12px; box-shadow:var(--shadow);
+      width:min(720px,92%); padding:1.4rem;
+    }
+    .panel h3{font-size:2.2rem; margin-bottom:.6rem; text-align:center}
+    .panel p{margin-bottom:1rem; text-align:center}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px}
+    .panel input, .panel textarea{
+      width:100%; padding:.7rem .8rem; border:1px solid #cfcfcf; border-radius:8px; font:inherit; background:#fff;
+    }
+    .panel textarea{min-height:140px; resize:vertical}
+    .btn{display:inline-block; padding:.8rem 1.1rem; border-radius:999px; background:var(--green-600); color:#fff; text-align:center; border:none; cursor:pointer}
+    .btn:hover{filter:brightness(1.05)}
+
+    /* ===== SUBSCRIBE ===== */
+    .subscribe{border-top:1px solid var(--edge); border-bottom:1px solid var(--edge); background:#fafafa}
+    .sub-wrap{max-width:700px;margin:0 auto}
+    .sub-title{text-align:center;font-size:2.2rem;margin-bottom:1rem}
+    .sub-form{display:grid; grid-template-columns:1fr auto; gap:10px}
+    .sub-input{padding:.8rem .9rem;border:1px solid #cfcfcf;border-radius:10px;font:inherit}
+    .sub-btn{padding:.8rem 1.2rem;border-radius:10px;background:#000;color:#fff;border:none;cursor:pointer}
+
+    /* ===== EVENTS ===== */
+    .events .section-title{text-align:center;margin-bottom:1.4rem}
+    .event{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:center; border:1px solid var(--edge); border-radius:12px; overflow:hidden; margin-bottom:1.2rem}
+    .event img{width:100%; height:100%; object-fit:cover}
+    .event .info{padding:1.2rem}
+    .event .info h3{font-size:1.6rem;margin-bottom:.4rem}
+    .event .info p{margin-bottom:.8rem}
+
+    /* ===== FOOTER ===== */
+    footer{padding:2.2rem 1.6rem; text-align:center; color:#777; border-top:1px solid var(--edge)}
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 920px){
+      .strip-grid{grid-template-columns:1fr; padding-bottom:1.6rem}
+      .life-grid{grid-template-columns:1fr}
+      .event{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <ul class="menu">
+        <li><a href="#shares">שיתופים</a></li>
+        <li><a href="#events">אירועים</a></li>
+        <li><a href="#stories">זכרונות</a></li>
+        <li><a href="#videos">סרטונים</a></li>
+        <li><a href="#gallery">תמונות</a></li>
+        <li><a href="#life">סיפור חייו</a></li>
+        <li><a href="#top">אתר לזכרו</a></li>
+      </ul>
+      <div class="lang">עברית</div>
+    </div>
+  </div>
+
+  <!-- BIG TITLE -->
+  <div class="title-hero">
+    <div class="bigtitle">יוסי קרטה</div>
+  </div>
+
+  <!-- SPLIT HERO STRIP -->
+  <div id="top" class="strip">
+    <div class="strip-grid">
+      <div class="card"><img src="images/_14_1076_Original.JPG" alt="תמונה שמאלית"></div>
+      <div class="card center-card">
+        <img src="images/50eac2e6-8607-42b9-882a-9d2c104508c4.jpg" alt="תמונה מרכזית">
+        <div class="center-caption">כאן נוכל לזכור ולהנציח את יוסי והחזון שלו</div>
+      </div>
+      <div class="card"><img src="images/_19_0575_Original.JPG" alt="תמונה ימנית"></div>
+    </div>
+  </div>
+
+  <!-- LIFE -->
+  <section id="life" class="life">
+    <div class="wrap life-grid">
+      <div>
+        <h2>סיפור חייו</h2>
+        <p>כמה פסקאות קצרות על יוסי — ילדות, משפחה, תחביבים, חזון, ואנשים שהאיר.</p>
+        <p class="muted">רוצים שננסח יחד? שלחו טיוטה קצרה ונלטש אותה.</p>
+      </div>
+      <div class="imgbox"><img src="images/1f546004-d789-4233-b0b2-bb5cfdcf7923.jpg" alt="דיוקן"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery">
+    <div class="wrap">
+      <h2 class="section-title">תמונות</h2>
+      <div class="rail-wrap">
+        <button class="arrow prev" onclick="scrollRail(-1)">‹</button>
+        <div id="rail" class="rail">
+          <div class="shot"><img src="images/394ab0ad-c2b6-411f-ac24-b9cf393d2494.jpg" alt=""></div>
+          <div class="shot"><img src="images/4e29ae4d-17e6-4bcf-aca0-c618b9f2214a.jpg" alt=""></div>
+          <div class="shot"><img src="images/50eac2e6-8607-42b9-882a-9d2c104508c4.jpg" alt=""></div>
+          <div class="shot"><img src="images/75972bfa-fbb1-4e5c-902c-102e405d1fd6.jpg" alt=""></div>
+          <div class="shot"><img src="images/0DD2E415-378F-4132-9D46-8EE82F444DBF.jpg" alt=""></div>
+          <div class="shot"><img src="images/_14_1076_Original.JPG" alt=""></div>
+          <div class="shot"><img src="images/_19_0575_Original.JPG" alt=""></div>
+          <div class="shot"><img src="images/159cfb1e-d0c3-4a74-8b10-b0ea0cec742e.jpg" alt=""></div>
+        </div>
+        <button class="arrow next" onclick="scrollRail(1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos" class="videos">
+    <div class="wrap">
+      <h2 class="section-title">סרטונים</h2>
+
+      <!-- Big player: Use your MP4 (or YouTube embed) -->
+      <div class="video-hero">
+        <!-- Option A: MP4 you host in /videos -->
+        <video id="player" controls preload="metadata" style="width:100%;height:auto;">
+          <source src="videos/IMG_9215.mp4" type="video/mp4" />
+        </video>
+
+        <!-- Option B (replace above): 
+        <iframe width="100%" height="520" src="https://www.youtube.com/embed/VIDEO_ID" 
+                title="YouTube video" frameborder="0" allowfullscreen></iframe> 
+        -->
+      </div>
+
+      <!-- Thumbnails: clicking swaps the main MP4 source -->
+      <div class="thumbs">
+        <div class="thumb" onclick="swapVideo('videos/IMG_9215.mp4')"><img src="images/394ab0ad-c2b6-411f-ac24-b9cf393d2494.jpg" alt=""></div>
+        <div class="thumb" onclick="swapVideo('videos/clip2.mp4')"><img src="images/4e29ae4d-17e6-4bcf-aca0-c618b9f2214a.jpg" alt=""></div>
+        <div class="thumb" onclick="swapVideo('videos/clip3.mp4')"><img src="images/50eac2e6-8607-42b9-882a-9d2c104508c4.jpg" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERLAY FORM (“זכרונות פיוֹס”) -->
+  <section id="shares" class="mem-form">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="panel">
+      <h3>זכרונות פיוֹס</h3>
+      <p>כאן תוכלו לכתוב סיפור על יוסי, להעלות תמונה או לצרף קישור.</p>
+      <form onsubmit="alert('תודה! ההודעה נשלחה (דוגמה).'); return false;">
+        <div class="row">
+          <input type="text" placeholder="שם ושם משפחה">
+          <input type="url" placeholder="קישור רצוי (אופציונלי)">
+        </div>
+        <div class="row">
+          <input type="file" accept="image/*,video/*">
+          <span></span>
+        </div>
+        <textarea placeholder="ספרו לנו על יוסי"></textarea>
+        <div style="margin-top:10px;display:flex;justify-content:center;">
+          <button class="btn" type="submit">שליחה</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="subscribe">
+    <div class="wrap sub-wrap">
+      <div class="sub-title">תזכורות במייל</div>
+      <form class="sub-form" onsubmit="alert('נרשמתם (דוגמה).'); return false;">
+        <input class="sub-input" type="email" required placeholder="* Email">
+        <button class="sub-btn" type="submit">תצרפו אותי</button>
+      </form>
+      <p class="muted" style="margin-top:.6rem;">בחרו אם תרצו לקבל עדכונים על אירועים עתידיים.</p>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events" class="events">
+    <div class="wrap">
+      <h2 class="section-title">אירועים קרובים</h2>
+
+      <article class="event">
+        <img src="images/4e29ae4d-17e6-4bcf-aca0-c618b9f2214a.jpg" alt="">
+        <div class="info">
+          <h3>אזכרה</h3>
+          <p class="muted">יום ב׳, 23 בנובמבר · נתניה</p>
+          <p>בחלוף שנה ראשונה, נפגש בבית העלמין לזכור את יוסי.</p>
+          <a class="btn" href="#" target="_blank" rel="noopener">אישור הגעה</a>
+        </div>
+      </article>
+
+      <article class="event">
+        <img src="images/75972bfa-fbb1-4e5c-902c-102e405d1fd6.jpg" alt="">
+        <div class="info">
+          <h3>נטיעת פינת הנצחה</h3>
+          <p class="muted">התאריך יעודכן · תל מונד</p>
+          <p>ניפגש לשתול פינת הנצחה עבור יוסי באחוזת זיו.</p>
+          <a class="btn" href="#" target="_blank" rel="noopener">אישור הגעה</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    &copy; <span id="y"></span> לזכר יוסי קרטה · נבנה באהבה
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById("y").textContent = new Date().getFullYear().toString();
+
+    // Gallery scroll buttons
+    function scrollRail(dir){
+      const el = document.getElementById('rail');
+      el.scrollBy({left: dir * 320, behavior: 'smooth'});
+    }
+
+    // Swap main video source (when using local MP4s)
+    function swapVideo(src){
+      const v = document.getElementById('player');
+      if(!v) return;
+      const t = v.currentTime;
+      v.src = src;
+      v.load();
+      v.currentTime = t;
+      v.play().catch(()=>{});
+    }
+  </script>
+</body>
+</html>
