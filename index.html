@@ -415,33 +415,37 @@ html, body, button, input, textarea {
   }
 
   // Send data to Google Apps Script
+<script>
   async function submitMemory(name, link, text, mediaBase64) {
     const data = { author: name, link, text, media: mediaBase64 };
 
     try {
       const res = await fetch(API_URL, {
-  method: "POST",
-  // send as text/plain (simple request) to avoid CORS preflight
-  body: JSON.stringify(data)
-});
+        method: "POST",
+        // no headers -> stays a "simple request" (no CORS preflight)
+        body: JSON.stringify(data)
+      });
 
-// Apps Script returns JSON text; parse if you want
-const text = await res.text();
-let result = {};
-try { result = JSON.parse(text); } catch {}
+      const responseText = await res.text();
+      console.log("API status:", res.status, responseText);
 
-      if (result.ok) {
+      let result = {};
+      try { result = JSON.parse(responseText); } catch (_) {}
+
+      if (res.ok && (result.ok === undefined || result.ok === true)) {
         alert("נשמר בהצלחה!");
-        form.reset();
+        document.getElementById("memoryForm").reset();
+        // optionally refresh the masonry here if you already render from the API
       } else {
-        alert("שגיאה בשליחה");
+        alert(`שגיאה מהשרת (סטטוס ${res.status}):\n${responseText || "No body"}`);
       }
     } catch (err) {
       console.error(err);
-      alert("שגיאה בחיבור לשרת");
+      alert("שגיאת רשת/חיבור לשרת: " + err.message);
     }
   }
 </script>
+
 
   <!-- MEMORIES SECTION -->
 <section id="stories" class="memories">
