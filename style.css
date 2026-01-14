@@ -125,7 +125,8 @@ h2 {
 
 /* ===== BIG TITLE ===== */
 .title-hero {
-  box-shadow: 0 6px 10px rgba(img src="images/IMG_6462.jpg" , 0.12);
+  box-shadow: 0 6px 10px rgba(0 ,0 ,0 , 0.12);
+  background: (img src="images/IMG_6462.jpg")
 }
 .bigtitle {
   font-size: clamp(3rem, 10vw, 11rem);
