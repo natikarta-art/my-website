@@ -147,7 +147,6 @@ h2 {
 }
 .strip-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
   gap: 1.2rem;
   align-items: stretch;
   max-width: 1200px;
