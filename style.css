@@ -125,7 +125,6 @@ h2 {
 
 /* ===== BIG TITLE ===== */
 .title-hero {
-.title-hero {
   background-image: url("images/IMG_6462.jpg");
   background-size: cover;
   background-position: center;
@@ -152,7 +151,7 @@ h2 {
   padding: 2rem 0 0;
 }
 .strip-grid {
-  display: single;
+  display:flex;
   gap: 1.2rem;
   align-items: stretch;
   max-width: 1200px;
@@ -168,7 +167,7 @@ h2 {
 }
 .card img {
   width: 100%;
-  height:70%;
+  height:100%;
   object-fit: fit;
 }
 .center-caption {
