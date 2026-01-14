@@ -124,13 +124,17 @@ h2 {
 }
 
 /* ===== BIG TITLE ===== */
-.title-hero{
-  position: relative;
+.title-hero {
+  min-height: 100vh;                /* full screen height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background-image: url("images/IMG_6462.jpg");
-  background-size: cover;
+  background-size: cover;           /* fills area */
   background-position: center;
-  background-repeat: no-repeat;
 }
+
 .title-hero .bigtitle{
   position: relative;
   z-index: 2;
@@ -142,13 +146,6 @@ h2 {
   background-position: center;
 }
 
-.title-hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,0.45); /* dark overlay */
-  z-index:1;
-}
 
 .title-hero .bigtitle{
   position: center;
