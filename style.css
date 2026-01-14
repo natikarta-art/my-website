@@ -156,14 +156,21 @@ h2 {
 }
 
 
-.bigtitle{
+.bigtitle {
+  font-size: clamp(3rem, 10vw, 11rem);
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+
   background: linear-gradient(90deg, var(--brand1), var(--brand2));
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent; /* important for Safari/Chrome */
+  -webkit-text-fill-color: transparent;
   color: transparent;
-}
 
+  margin: 0;
+  padding: 0 1rem;
+}
 
 /* ===== SPLIT HERO STRIP ===== */
 .strip {
