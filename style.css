@@ -124,26 +124,27 @@ h2 {
 }
 
 /* ===== BIG TITLE ===== */
-.title-hero {
+.title-hero{
+  position: relative;
   background-image: url("images/IMG_6462.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
+.title-hero .bigtitle{
+  position: relative;
+  z-index: 2;
 }
-.bigtitle {
-  font-size: clamp(3rem, 10vw, 11rem);
-  text-align: center;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
+
+
+.bigtitle{
   background: linear-gradient(90deg, var(--brand1), var(--brand2));
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent; /* important for Safari/Chrome */
   color: transparent;
-  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  padding: 2.2rem 1rem 0;
 }
+
 
 /* ===== SPLIT HERO STRIP ===== */
 .strip {
