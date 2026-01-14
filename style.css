@@ -116,7 +116,7 @@ h2 {
   opacity: 1;
 }
 .lang {
-  background: <img src="images/IMG_6462.jpg" alt="תמונת רקע">;
+  background: (img src="images/IMG_6462.jpg" alt="תמונת רקע");
   color: #1a1a1a;
   border-radius: 6px;
   padding: 0.35rem 0.6rem;
