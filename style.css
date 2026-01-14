@@ -135,6 +135,25 @@ h2 {
   position: relative;
   z-index: 2;
 }
+.title-hero{
+  position: relative;
+  background-image: url("images/IMG_6462.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.title-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.45); /* dark overlay */
+  z-index:1;
+}
+
+.title-hero .bigtitle{
+  position: center;
+  z-index:2;
+}
 
 
 .bigtitle{
