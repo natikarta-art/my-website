@@ -125,15 +125,24 @@ h2 {
 
 /* ===== BIG TITLE ===== */
 .title-hero {
-  min-height: 100vh;                /* full screen height */
+  position: relative;
+  text-align: center;
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;     /* preserves full image */
+  display: block;
+}
+
+.bigtitle {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-image: url("images/IMG_6462.jpg");
-  background-size: cover;           /* fills area */
-  background-position: center;
 }
+
 
 .title-hero .bigtitle{
   position: relative;
