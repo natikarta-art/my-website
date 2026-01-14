@@ -116,7 +116,7 @@ h2 {
   opacity: 1;
 }
 .lang {
-  background: (img src="images/IMG_6462.jpg" alt="תמונת רקע");
+  background: #fff;
   color: #1a1a1a;
   border-radius: 6px;
   padding: 0.35rem 0.6rem;
@@ -125,7 +125,7 @@ h2 {
 
 /* ===== BIG TITLE ===== */
 .title-hero {
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 10px rgba(img src="images/IMG_6462.jpg" , 0.12);
 }
 .bigtitle {
   font-size: clamp(3rem, 10vw, 11rem);
