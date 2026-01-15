@@ -660,3 +660,22 @@ img {
     height: 90px;
   }
 }
+/* ===== FORM BOX BACKGROUND IMAGE ===== */
+
+.form-box{
+  position: relative;
+  overflow: hidden;   /* keeps rounded corners */
+}
+
+.form-bg{
+  position: absolute;
+  inset: 0;
+  background: url("images/IMG_9261.JPG.jpg") center / cover no-repeat;
+  opacity: 0.15;      /* adjust visibility */
+  z-index: 0;
+}
+
+.form-box > *{
+  position: relative;
+  z-index: 1;
+}
