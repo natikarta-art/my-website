@@ -169,8 +169,14 @@ h2 {
   pointer-events: none;
 }
 .bigtitle{ z-index: 2; }
+.bigtitle{
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.6),
+    0 8px 16px rgba(0,0,0,0.4);
+}
+
 .center-caption {
-  position: bottom left;
+  position: center;
   inset: auto 50% 1.2rem auto;
   transform: translateX(50%);
   background: var(--green-600);
