@@ -124,59 +124,41 @@ h2 {
 }
 
 /* ===== BIG TITLE ===== */
-.title-hero {
-  position: relative;
-  text-align: top;
-}
-
-.hero-img {
-  width: 100%;
-  height: auto;     /* preserves full image */
-  display: block;
-}
-
-.bigtitle {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.title-hero .bigtitle{
-  position: relative;
-  z-index: 2;
-}
 .title-hero{
   position: relative;
-  background-image: url("images/IMG_6462.jpg");
-  background-size: cover;
-  background-position: center;
-   background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-
-.title-hero .bigtitle{
-  position: center;
-  z-index:2;
+/* This makes the section match the image height exactly */
+.hero-img{
+  width: 100%;
+  height: auto;      /* keeps exact proportions */
+  display: block;    /* removes weird gaps */
 }
 
-
-.bigtitle {
-  font-size: clamp(3rem, 10vw, 11rem);
+/* Title sits ON TOP of the image */
+.bigtitle{
+  position: absolute;
+  top: 1.5rem;       /* distance from top */
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 1rem;
   text-align: center;
+  width: 100%;
+  z-index: 2;
+
+  /* keep your gradient text if you want */
+  font-size: clamp(3rem, 10vw, 11rem);
   line-height: 1.05;
   letter-spacing: 0.02em;
-
   background: linear-gradient(90deg, var(--brand1), var(--brand2));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-
-  margin: 0;
-  padding: 0 1rem;
 }
 
 /* ===== SPLIT HERO STRIP ===== */
