@@ -170,9 +170,9 @@ h2 {
 }
 .bigtitle{ z-index: 2; }
 .bigtitle{
+  font-weight: 800;
   text-shadow:
-    0 2px 4px rgba(0,0,0,0.3),
-    0 8px 16px rgba(0,0,0,0.2);
+    0 3px 6px rgba(255,255,255,0.55);
 }
 
 
