@@ -171,23 +171,8 @@ h2 {
 .bigtitle{ z-index: 2; }
 .bigtitle{
   text-shadow:
-    0 2px 4px rgba(0,0,0,0.6),
-    0 8px 16px rgba(0,0,0,0.4);
-}
-
-.center-caption {
-  position: center;
-  inset: auto 50% 1.2rem auto;
-  transform: translateX(50%);
-  background: var(--green-600);
-  color: #fff;
-  border-radius: 8px;
-  padding:0rem;
-  margin-top: 1rem;
-  box-shadow: var(--shadow);
-  font-size: clamp(1.1rem, 2.1vw, 1.6rem);
-  max-width: min(90%, 640px);
-  text-align: center;
+    0 2px 4px rgba(0,0,0,0.3),
+    0 8px 16px rgba(0,0,0,0.2);
 }
 
 
@@ -216,6 +201,22 @@ h2 {
   height:100%;
   object-fit: fit;
 }
+.center-caption {
+  position: center;
+  inset: auto 50% 1.2rem auto;
+  transform: translateX(50%);
+  background: var(--green-600);
+  color: #fff;
+  border-radius: 8px;
+  padding:0rem;
+  margin-top: 1rem;
+  box-shadow: var(--shadow);
+  font-size: clamp(1.1rem, 2.1vw, 1.6rem);
+  max-width: min(90%, 640px);
+  text-align: center;
+}
+
+
 
 /* ===== LIFE SECTION ===== */
 .life {
