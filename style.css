@@ -662,16 +662,27 @@ img {
 }
 /* ===== FORM BOX BACKGROUND IMAGE ===== */
 
-.form-box{
-  position: relative;
-  overflow: hidden;   /* keeps rounded corners */
+.form-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.85),
+      rgba(255,255,255,0.95)
+    ),
+    url("images/IMG_6462.jpg") center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
 }
+
 
 .form-bg{
   position: absolute;
   inset: 0;
   background: url("images/IMG_9261.JPG") center / cover no-repeat;
-  opacity: 0.6;      /* adjust visibility */
+  opacity: 0.4;      /* adjust visibility */
   z-index: 0;
 }
 
