@@ -669,7 +669,7 @@ img {
 }
 
 /* background layer */
-.form-box:{
+.form-box::before{
   position:absolute;
   inset:0;
   background:
@@ -677,4 +677,9 @@ img {
     url("images/IMG_9261.JPG") center / cover no-repeat;
   z-index: 0;              /* stays behind */
   pointer-events: none;
+}
+/* EVERYTHING inside the form-box goes above the background */
+.form-box > *{
+  position: relative;
+  z-index: 1;
 }
