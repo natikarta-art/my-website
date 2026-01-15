@@ -141,7 +141,7 @@ h2 {
 /* Title sits ON TOP of the image */
 .bigtitle{
   position: absolute;
-  top: 1.5rem;       /* distance from top */
+  top: 3rem;       /* distance from top */
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -154,7 +154,7 @@ h2 {
   font-size: clamp(4rem, 10vw, 11rem);
   line-height: 1.05;
   letter-spacing: 0.02em;
-  background: linear-gradient(90deg, var(#0a5bb9), var(#0a20b9));
+  background: linear-gradient(90deg, var(--brand1), var(--brand2));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
