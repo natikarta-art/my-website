@@ -126,7 +126,7 @@ h2 {
 /* ===== BIG TITLE ===== */
 .title-hero {
   position: relative;
-  text-align: center;
+  text-align: top;
 }
 
 .hero-img {
