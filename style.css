@@ -478,7 +478,7 @@ h2 {
 
 /* ===== FORM BOX STYLE ===== */
 .form-box {
-  background: #ffffff;
+  background: rgba(255,255,255,0.92);
   padding: 2rem 2.2rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -671,11 +671,11 @@ img {
   position: absolute;
   inset: 0;
   background: url("images/IMG_9261.JPG") center / cover no-repeat;
-  opacity: 0.5;      /* adjust visibility */
+  opacity: 0.15;      /* adjust visibility */
   z-index: 0;
 }
 
-.form-box > *{
+.form-box > :not(.form-bg){
   position: relative;
   z-index: 1;
 }
