@@ -141,7 +141,7 @@ h2 {
 /* Title sits ON TOP of the image */
 .bigtitle{
   position: absolute;
-  top: 3rem;       /* distance from top */
+  top: 1.5rem;       /* distance from top */
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -207,7 +207,7 @@ h2 {
   box-shadow: var(--shadow);
   font-size: clamp(1.1rem, 2.1vw, 1.6rem);
   max-width: min(90%, 640px);
-  text-align: center;
+  text-align: left;
 }
 
 /* ===== LIFE SECTION ===== */
@@ -217,7 +217,7 @@ h2 {
 .life-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 0rem;
   align-items: center;
 }
 .life .imgbox {
