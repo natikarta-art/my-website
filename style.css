@@ -495,7 +495,7 @@ h2 {
 .form-box p {
   margin-bottom: 1rem;
   text-align: center;
-  color: var(--muted);
+  color: var(--paper);
 }
 .form-box form input,
 .form-box form textarea {
@@ -669,12 +669,11 @@ img {
 }
 
 /* background layer */
-.form-box::before{
-  content:"";
+.form-box:{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(to bottom, rgba(255,255,255,0.55), rgba(255,255,255,1)),
+    linear-gradient(to bottom, rgba(255,255,255,1.5), rgba(255,255,255,0.85)),
     url("images/IMG_9261.JPG") center / cover no-repeat;
   z-index: 0;              /* stays behind */
   pointer-events: none;
