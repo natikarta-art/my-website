@@ -661,24 +661,23 @@ img {
   }
 }
 /* ===== FORM BOX BACKGROUND IMAGE ===== */
-/* FORM BOX (content must be above the background layer) */
 .form-box{
   position: relative;
   overflow: hidden;
-  background: rgba(255,255,255,0.80);
+  background: rgba(255,255,255,0.82);
 }
 
-/* background layer */
 .form-box::before{
+  content:"";
   position:absolute;
   inset:0;
   background:
-    linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.55)),
+    linear-gradient(to bottom, rgba(255,255,255,0.20), rgba(255,255,255,0.60)),
     url("images/IMG_9261.JPG") center / cover no-repeat;
-  z-index: 0;              /* stays behind */
+  z-index: 0;
   pointer-events: none;
 }
-/* EVERYTHING inside the form-box goes above the background */
+
 .form-box > *{
   position: relative;
   z-index: 1;
