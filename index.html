@@ -81,7 +81,7 @@
     <div id="videoGrid" class="video-grid">
 
       <!-- Video Card 1 -->
-      <article class="video-card" data-src="videos/video1.mp4" data-title="כותרת סרטון 1">
+      <article class="video-card" data-src="videos/video1.mp4">
         <button class="video-click" type="button" aria-label="נגן סרטון 1">
           <div class="video-frame">
             <video preload="metadata" muted playsinline>
@@ -90,13 +90,12 @@
           </div>
         </button>
         <div class="video-meta">
-          <div class="video-title">כותרת סרטון 1</div>
-          <div class="video-caption muted">תיאור קצר (אופציונלי)</div>
+        
         </div>
       </article>
 
       <!-- Video Card 2 -->
-      <article class="video-card" data-src="videos/video2.mp4" data-title="כותרת סרטון 2">
+      <article class="video-card" data-src="videos/video2.mp4">
         <button class="video-click" type="button" aria-label="נגן סרטון 2">
           <div class="video-frame">
             <video preload="metadata" muted playsinline>
@@ -105,13 +104,11 @@
           </div>
         </button>
         <div class="video-meta">
-          <div class="video-title">כותרת סרטון 2</div>
-          <div class="video-caption muted">תיאור קצר (אופציונלי)</div>
-        </div>
+        </div> 
       </article>
 
       <!-- Video Card 3 -->
-      <article class="video-card" data-src="videos/video3.mp4" data-title="כותרת סרטון 3">
+      <article class="video-card" data-src="videos/video3.mp4" >
         <button class="video-click" type="button" aria-label="נגן סרטון 3">
           <div class="video-frame">
             <video preload="metadata" muted playsinline>
@@ -120,8 +117,7 @@
           </div>
         </button>
         <div class="video-meta">
-          <div class="video-title">כותרת סרטון 3</div>
-          <div class="video-caption muted">תיאור קצר (אופציונלי)</div>
+    
         </div>
       </article>
 
@@ -142,11 +138,7 @@
   <div class="video-modal-panel" role="dialog" aria-modal="true" aria-label="נגן סרטונים">
     <button class="video-modal-close" type="button" aria-label="סגור" data-close="true">✕</button>
 
-    <div class="video-modal-header">
-      <div id="videoModalTitle" class="video-modal-title"></div>
-    </div>
-
-    <div class="video-modal-body">
+   <div class="video-modal-body">
       <button class="video-nav prev" type="button" aria-label="הסרטון הקודם">‹</button>
 
       <video id="videoModalPlayer" controls preload="metadata"></video>
