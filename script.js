@@ -276,7 +276,7 @@ if (rail) {
 // render on load
 refreshMemories();
 
-// ===== VIDEOS: HTML modal + next/prev + swipe (no extra overlay) =====
+// ===== VIDEOS: HTML modal + next/prev + swipe =====
 (function initVideosModal() {
   const grid = document.getElementById("videoGrid");
   const modal = document.getElementById("videoModal");
@@ -302,6 +302,8 @@ refreshMemories();
 
     const src = card.getAttribute("data-src") || "";
     const t = card.getAttribute("data-title") || "";
+
+    if (!src) return;
 
     if (title) title.textContent = t;
 
@@ -332,18 +334,16 @@ refreshMemories();
   function nextVideo() {
     const cards = getCards();
     if (!cards.length) return;
-    const next = (currentIndex + 1) % cards.length;
-    openAt(next);
+    openAt((currentIndex + 1) % cards.length);
   }
 
   function prevVideo() {
     const cards = getCards();
     if (!cards.length) return;
-    const prev = (currentIndex - 1 + cards.length) % cards.length;
-    openAt(prev);
+    openAt((currentIndex - 1 + cards.length) % cards.length);
   }
 
-  // Click card -> open
+  // Click any card/button inside the grid -> open
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".video-card");
     if (!card) return;
@@ -353,7 +353,7 @@ refreshMemories();
     if (idx >= 0) openAt(idx);
   });
 
-  // Close on backdrop / X (you used data-close="true" in HTML)
+  // Close on backdrop / X (your HTML uses data-close="true")
   modal.addEventListener("click", (e) => {
     if (e.target.closest('[data-close="true"]')) closeModal();
   });
@@ -362,134 +362,43 @@ refreshMemories();
   if (btnNext) btnNext.addEventListener("click", nextVideo);
   if (btnPrev) btnPrev.addEventListener("click", prevVideo);
 
-  // Keyboard: Esc closes; arrows navigate (RTL-friendly)
+  // Keyboard
   document.addEventListener("keydown", (e) => {
     if (!modal.classList.contains("is-open")) return;
 
     if (e.key === "Escape") closeModal();
-    if (e.key === "ArrowLeft") nextVideo();   // left = next (RTL feel)
+    if (e.key === "ArrowLeft") nextVideo();   // left = next
     if (e.key === "ArrowRight") prevVideo();  // right = prev
   });
 
-  // Swipe support (mobile) on the modal body area
+  // Swipe (mobile)
   const swipeArea = modal.querySelector(".video-modal-body") || player;
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchActive = false;
+  let sx = 0, sy = 0, active = false;
 
   swipeArea.addEventListener("touchstart", (e) => {
     if (!modal.classList.contains("is-open")) return;
     if (!e.touches || e.touches.length !== 1) return;
 
-    touchActive = true;
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
+    active = true;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
   }, { passive: true });
 
   swipeArea.addEventListener("touchend", (e) => {
-    if (!touchActive || !modal.classList.contains("is-open")) return;
-    touchActive = false;
+    if (!active || !modal.classList.contains("is-open")) return;
+    active = false;
 
     const t = e.changedTouches && e.changedTouches[0];
     if (!t) return;
 
-    const dx = t.clientX - touchStartX;
-    const dy = t.clientY - touchStartY;
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
 
     if (Math.abs(dy) > Math.abs(dx)) return;
 
     const TH = 60;
-    if (dx <= -TH) nextVideo();     // swipe left -> next
-    else if (dx >= TH) prevVideo(); // swipe right -> prev
+    if (dx <= -TH) nextVideo();
+    else if (dx >= TH) prevVideo();
   }, { passive: true });
 })();
 
-  // ===== Swipe support (mobile) =====
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchActive = false;
-
-  playerWrap.addEventListener("touchstart", (e) => {
-    if (overlay.style.display !== "flex") return;
-    if (!e.touches || e.touches.length !== 1) return;
-
-    touchActive = true;
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  playerWrap.addEventListener("touchend", (e) => {
-    if (!touchActive || overlay.style.display !== "flex") return;
-    touchActive = false;
-
-    const t = e.changedTouches && e.changedTouches[0];
-    if (!t) return;
-
-    const dx = t.clientX - touchStartX;
-    const dy = t.clientY - touchStartY;
-
-    // Ignore mostly-vertical gestures (scroll)
-    if (Math.abs(dy) > Math.abs(dx)) return;
-
-    // Threshold to avoid accidental swipes
-    const TH = 60;
-
-    if (dx <= -TH) {
-      // swipe left -> next (RTL-friendly)
-      nextV
-// ===== VIDEO MODAL OPEN / CLOSE =====
-const videoModal = document.getElementById("videoModal");
-const videoModalPlayer = document.getElementById("videoModalPlayer");
-const videoModalTitle = document.getElementById("videoModalTitle");
-
-function openVideoModal(src, title = "") {
-  if (!videoModal || !videoModalPlayer) return;
-
-  videoModalTitle.textContent = title;
-  videoModalPlayer.src = src;
-  videoModalPlayer.load();
-
-  videoModal.classList.add("is-open");
-  videoModal.setAttribute("aria-hidden", "false");
-
-  videoModalPlayer.play().catch(() => {});
-}
-
-function closeVideoModal() {
-  if (!videoModal || !videoModalPlayer) return;
-
-  videoModal.classList.remove("is-open");
-  videoModal.setAttribute("aria-hidden", "true");
-
-  videoModalPlayer.pause();
-  videoModalPlayer.removeAttribute("src");
-  videoModalPlayer.load();
-}
-
-// ===== CLICK VIDEO CARD TO OPEN MODAL =====
-const videoGrid = document.getElementById("videoGrid");
-
-if (videoGrid) {
-  videoGrid.addEventListener("click", (e) => {
-    const card = e.target.closest(".video-card");
-    if (!card) return;
-
-    const src = card.getAttribute("data-src");
-    const title = card.getAttribute("data-title") || "";
-
-    if (src) {
-      openVideoModal(src, title);
-    }
-  });
-}
-// ===== CLOSE MODAL (X or backdrop) =====
-if (videoModal) {
-  videoModal.addEventListener("click", (e) => {
-    if (
-      e.target.classList.contains("video-modal-backdrop") ||
-      e.target.classList.contains("video-modal-close")
-    ) {
-      closeVideoModal();
-    }
-  });
-}
