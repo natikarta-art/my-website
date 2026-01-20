@@ -786,3 +786,87 @@ img {
   inset: 0;
   z-index: 3000;
 }
+/* ===== VIDEO MODAL: BIGGER (almost fullscreen) ===== */
+#videoModal.is-open{
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+}
+
+#videoModal .video-modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+}
+
+/* make the panel much larger */
+#videoModal .video-modal-panel{
+  position: relative;
+  margin: 2vh auto 0;
+  width: min(1200px, 96vw);
+  height: 96vh;              /* key */
+  max-height: 96vh;
+  background: #111;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+/* header stays small */
+#videoModal .video-modal-header{
+  padding: 0.75rem 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* body takes the rest */
+#videoModal .video-modal-body{
+  position: relative;
+  padding: 0 1rem 1rem;
+  display: grid;
+  place-items: center;
+}
+
+/* video grows big but never overflows */
+#videoModal #videoModalPlayer{
+  width: 100%;
+  height: 100%;
+  max-height: calc(96vh - 80px); /* subtract header area */
+  object-fit: contain;           /* no cropping */
+  background: #000;
+  border-radius: 12px;
+}
+
+/* keep arrows visible */
+#videoModal .video-nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+}
+#videoModal .video-nav.prev{ right: 12px; }
+#videoModal .video-nav.next{ left: 12px; }
+
+/* close button */
+#videoModal .video-modal-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  cursor: pointer;
+  z-index: 6;
+}
