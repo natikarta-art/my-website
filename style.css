@@ -332,7 +332,18 @@ h2 {
   background: #000;
   width: 100%;
   aspect-ratio: 16 / 9;
-  overfl}
+  overfl
+}
+
+.videos .video-click{
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
 
 /* ===== OVERLAY FORM ===== */
 .mem-form {
