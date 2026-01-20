@@ -339,7 +339,7 @@ h2 {
 .videos .video-frame{
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 8;   /* medium; change to 16/7 smaller, 16/9 bigger */
+  aspect-ratio: 16 / 9;   /* medium; change to 16/7 smaller, 16/9 bigger */
   overflow: hidden;
   background: #000;
 }
