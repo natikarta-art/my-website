@@ -295,56 +295,130 @@ h2 {
   left: 8px;
 }
 
-/* ===== VIDEOS (GRID) ===== */
+/* ===== VIDEOS (GRID) — FIXED ===== */
 .videos .section-title{
   text-align: center;
   margin-bottom: 1rem;
 }
 
 /* 3 columns desktop */
-.video-grid{
+.videos .video-grid{
   display: grid;
-  gap: 1.2rem; /* FIXED */
+  gap: 1.2rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
 }
 
 /* video card */
-.video-card{
+.videos .video-card{
   border: 1px solid var(--edge);
   border-radius: 12px;
   overflow: hidden;
   background: var(--paper);
   box-shadow: var(--shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
 }
 
 /* subtle hover shadow */
-.video-card:hover{
+.videos .video-card:hover{
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(0,0,0,0.16);
 }
-.video-frame{
-  position: relative;
-  background: #000;
-  width: 100%;
-  aspect-ratio: 16 / 7;
-  overflow: hidden;
-}
-/* Make sure clicks go to the card/button, not the <video> preview */
-.videos .video-frame video{
-  pointer-events: none;
-}
 
+/* IMPORTANT: make the button cover the whole clickable area */
 .videos .video-click{
   display: block;
   width: 100%;
   padding: 0;
   border: 0;
   background: transparent;
-  font: inherit;
   cursor: pointer;
+}
+
+/* frame keeps nice proportions (MEDIUM height) */
+.videos .video-frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8;   /* medium; change to 16/7 smaller, 16/9 bigger */
+  overflow: hidden;
+  background: #000;
+}
+
+/* video fills frame */
+.videos .video-frame video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  /* key: don't let the video element steal clicks */
+  pointer-events: none;
+}
+
+/* Play icon overlay */
+.videos .video-frame::after{
+  content: "▶";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  font-size: 3rem;
+  color: #fff;
+
+  background: rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  /* key: don't let overlay steal clicks */
+  pointer-events: none;
+
+  text-shadow: 0 4px 12px rgba(0,0,0,0.45);
+}
+
+/* show icon on hover */
+.videos .video-card:hover .video-frame::after{
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* title + caption */
+.videos .video-meta{
+  padding: 0.9rem 1rem 1rem;
+}
+
+.videos .video-title{
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.videos .video-caption{
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* responsive */
+@media (max-width: 1024px){
+  .videos .video-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px){
+  .videos .video-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* mobile: slightly taller looks better */
+  .videos .video-frame{
+    aspect-ratio: 16 / 9;
+  }
+
+  /* no hover on mobile; keep icon faintly visible */
+  .videos .video-frame::after{
+    opacity: 0.35;
+  }
 }
 
 
