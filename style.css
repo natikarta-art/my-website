@@ -329,10 +329,13 @@ h2 {
   position: relative;
   background: #000;
   width: 100%;
-  aspect-ratio: 16 / 6;
+  aspect-ratio: 16 / 7;
   overflow: hidden;
 }
-
+/* Make sure clicks go to the card/button, not the <video> preview */
+.videos .video-frame video{
+  pointer-events: none;
+}
 
 .videos .video-click{
   display: block;
@@ -343,10 +346,7 @@ h2 {
   font: inherit;
   cursor: pointer;
 }
-/* Make sure clicks go to the card/button, not the <video> preview */
-.videos .video-frame video{
-  pointer-events: none;
-}
+
 
 /* ===== OVERLAY FORM ===== */
 .mem-form {
