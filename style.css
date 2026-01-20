@@ -697,3 +697,15 @@ img {
   position: relative;
   z-index: 1;
 }
+/* Hide the modal by default so it doesn't appear as an extra box */
+#videoModal{
+  display: none;
+}
+
+/* Show it only when JS adds .is-open */
+#videoModal.is-open{
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+}
