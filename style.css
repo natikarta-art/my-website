@@ -332,11 +332,8 @@ h2 {
   aspect-ratio: 16 / 6;
   overflow: hidden;
 }
-@media (max-width: 640px){
-  .video-frame{
-    aspect-ratio: 16 / 9;
-  }
-}
+
+
 .videos .video-click{
   display: block;
   width: 100%;
@@ -345,6 +342,10 @@ h2 {
   background: transparent;
   font: inherit;
   cursor: pointer;
+}
+/* Make sure clicks go to the card/button, not the <video> preview */
+.videos .video-frame video{
+  pointer-events: none;
 }
 
 /* ===== OVERLAY FORM ===== */
