@@ -300,8 +300,8 @@ refreshMemories();
 
   const panel = document.createElement("div");
   panel.style.position = "relative";
-  panel.style.width = "min(1000px, 96vw)";
-  panel.style.maxHeight = "90vh";
+  panel.style.width = "min(860px, 92vw)";
+  panel.style.maxHeight = "82vh";
   panel.style.display = "grid";
   panel.style.gap = "0.75rem";
 
@@ -325,6 +325,7 @@ refreshMemories();
   player.style.width = "100%";
   player.style.height = "auto";
   player.style.display = "block";
+  player.style.maxHeight = "70vh";
   player.playsInline = true;
 
   // Close button
