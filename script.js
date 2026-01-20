@@ -275,3 +275,235 @@ if (rail) {
 
 // render on load
 refreshMemories();
+
+// ===== VIDEOS: clickable grid + modal + next/prev + swipe =====
+(function initVideos() {
+  const grid = document.getElementById("videoGrid");
+  if (!grid) return;
+
+  // Collect cards from the grid (supports dynamic append later)
+  function getCards() {
+    return Array.from(grid.querySelectorAll(".video-card"));
+  }
+
+  // Create modal once
+  const overlay = document.createElement("div");
+  overlay.id = "videoOverlay";
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+  overlay.style.zIndex = "2000";
+  overlay.style.display = "none";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.padding = "1rem";
+
+  const panel = document.createElement("div");
+  panel.style.position = "relative";
+  panel.style.width = "min(1000px, 96vw)";
+  panel.style.maxHeight = "90vh";
+  panel.style.display = "grid";
+  panel.style.gap = "0.75rem";
+
+  const title = document.createElement("div");
+  title.id = "videoOverlayTitle";
+  title.style.color = "#fff";
+  title.style.textAlign = "center";
+  title.style.fontSize = "1.2rem";
+  title.style.padding = "0.25rem 0.5rem";
+
+  const playerWrap = document.createElement("div");
+  playerWrap.style.position = "relative";
+  playerWrap.style.borderRadius = "12px";
+  playerWrap.style.overflow = "hidden";
+  playerWrap.style.background = "#000";
+
+  const player = document.createElement("video");
+  player.id = "videoOverlayPlayer";
+  player.controls = true;
+  player.preload = "metadata";
+  player.style.width = "100%";
+  player.style.height = "auto";
+  player.style.display = "block";
+  player.playsInline = true;
+
+  // Close button
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.textContent = "✕";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "10px";
+  closeBtn.style.right = "10px";
+  closeBtn.style.width = "42px";
+  closeBtn.style.height = "42px";
+  closeBtn.style.borderRadius = "999px";
+  closeBtn.style.border = "1px solid rgba(255,255,255,0.25)";
+  closeBtn.style.background = "rgba(0,0,0,0.35)";
+  closeBtn.style.color = "#fff";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.style.zIndex = "5";
+
+  // Prev/Next buttons (RTL-friendly: left arrow feels like next)
+  const prevBtn = document.createElement("button");
+  prevBtn.type = "button";
+  prevBtn.textContent = "›"; // previous in RTL
+  prevBtn.setAttribute("aria-label", "הסרטון הקודם");
+  prevBtn.style.position = "absolute";
+  prevBtn.style.top = "50%";
+  prevBtn.style.right = "10px";
+  prevBtn.style.transform = "translateY(-50%)";
+  prevBtn.style.width = "44px";
+  prevBtn.style.height = "44px";
+  prevBtn.style.borderRadius = "999px";
+  prevBtn.style.border = "1px solid rgba(255,255,255,0.25)";
+  prevBtn.style.background = "rgba(0,0,0,0.35)";
+  prevBtn.style.color = "#fff";
+  prevBtn.style.cursor = "pointer";
+  prevBtn.style.zIndex = "5";
+
+  const nextBtn = document.createElement("button");
+  nextBtn.type = "button";
+  nextBtn.textContent = "‹"; // next in RTL
+  nextBtn.setAttribute("aria-label", "הסרטון הבא");
+  nextBtn.style.position = "absolute";
+  nextBtn.style.top = "50%";
+  nextBtn.style.left = "10px";
+  nextBtn.style.transform = "translateY(-50%)";
+  nextBtn.style.width = "44px";
+  nextBtn.style.height = "44px";
+  nextBtn.style.borderRadius = "999px";
+  nextBtn.style.border = "1px solid rgba(255,255,255,0.25)";
+  nextBtn.style.background = "rgba(0,0,0,0.35)";
+  nextBtn.style.color = "#fff";
+  nextBtn.style.cursor = "pointer";
+  nextBtn.style.zIndex = "5";
+
+  playerWrap.appendChild(player);
+  playerWrap.appendChild(closeBtn);
+  playerWrap.appendChild(prevBtn);
+  playerWrap.appendChild(nextBtn);
+
+  panel.appendChild(title);
+  panel.appendChild(playerWrap);
+  overlay.appendChild(panel);
+  document.body.appendChild(overlay);
+
+  let currentIndex = -1;
+
+  function openAt(index) {
+    const cards = getCards();
+    if (!cards.length) return;
+
+    currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const card = cards[currentIndex];
+
+    const src = card.getAttribute("data-src") || "";
+    const t = card.getAttribute("data-title") || "";
+
+    title.textContent = t;
+
+    // Load video
+    player.pause();
+    player.removeAttribute("src");
+    player.load();
+
+    player.src = src;
+    player.load();
+
+    overlay.style.display = "flex";
+
+    // Try autoplay (may be blocked)
+    player.play().catch(() => {});
+  }
+
+  function closeOverlay() {
+    overlay.style.display = "none";
+    player.pause();
+    player.removeAttribute("src");
+    player.load();
+    currentIndex = -1;
+  }
+
+  function nextVideo() {
+    const cards = getCards();
+    if (!cards.length) return;
+    const next = (currentIndex + 1) % cards.length;
+    openAt(next);
+  }
+
+  function prevVideo() {
+    const cards = getCards();
+    if (!cards.length) return;
+    const prev = (currentIndex - 1 + cards.length) % cards.length;
+    openAt(prev);
+  }
+
+  // Click card -> open
+  grid.addEventListener("click", (e) => {
+    const card = e.target.closest(".video-card");
+    if (!card) return;
+
+    const cards = getCards();
+    const idx = cards.indexOf(card);
+    if (idx >= 0) openAt(idx);
+  });
+
+  // Close when clicking outside panel (on overlay background)
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeOverlay();
+  });
+  closeBtn.addEventListener("click", closeOverlay);
+
+  // Nav buttons
+  nextBtn.addEventListener("click", nextVideo);
+  prevBtn.addEventListener("click", prevVideo);
+
+  // Keyboard: Esc closes; arrows navigate (RTL-friendly mapping)
+  document.addEventListener("keydown", (e) => {
+    if (overlay.style.display !== "flex") return;
+
+    if (e.key === "Escape") closeOverlay();
+    if (e.key === "ArrowLeft") nextVideo();   // left = next
+    if (e.key === "ArrowRight") prevVideo();  // right = prev
+  });
+
+  // ===== Swipe support (mobile) =====
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchActive = false;
+
+  playerWrap.addEventListener("touchstart", (e) => {
+    if (overlay.style.display !== "flex") return;
+    if (!e.touches || e.touches.length !== 1) return;
+
+    touchActive = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  playerWrap.addEventListener("touchend", (e) => {
+    if (!touchActive || overlay.style.display !== "flex") return;
+    touchActive = false;
+
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!t) return;
+
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+
+    // Ignore mostly-vertical gestures (scroll)
+    if (Math.abs(dy) > Math.abs(dx)) return;
+
+    // Threshold to avoid accidental swipes
+    const TH = 60;
+
+    if (dx <= -TH) {
+      // swipe left -> next (RTL-friendly)
+      nextVideo();
+    } else if (dx >= TH) {
+      // swipe right -> prev
+      prevVideo();
+    }
+  }, { passive: true });
+})();
+
