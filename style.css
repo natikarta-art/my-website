@@ -325,16 +325,18 @@ h2 {
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(0,0,0,0.16);
 }
-
-/* frame keeps nice proportions */
 .video-frame{
-  position: relative;        /* needed for overlay */
+  position: relative;
   background: #000;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  overfl
+  aspect-ratio: 16 / 6;
+  overflow: hidden;
 }
-
+@media (max-width: 640px){
+  .video-frame{
+    aspect-ratio: 16 / 9;
+  }
+}
 .videos .video-click{
   display: block;
   width: 100%;
